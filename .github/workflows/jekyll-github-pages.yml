@@ -3,13 +3,13 @@ name: Build and Deploy a Jekyll Site to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - gh-pages
 
 jobs:
   jekyll:
-    runs-on: macos-latest
+    runs-on: linux
     steps:
-      - name: 📂 setup
+      - name: setup
         uses: actions/checkout@v2
 
         # include the lines below if you are using jekyll-last-modified-at
@@ -17,17 +17,17 @@ jobs:
         # however this may be very slow for large repositories!
         # with:
         # fetch-depth: '0'
-      - name: 💎 setup ruby
+      - name: setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 2.7.3
 
-      - name: 🔨 install dependencies & build site
+      - name: install dependencies & build site
         uses: limjh16/jekyll-action-ts@v2
         with:
           enable_cache: true
 
-      - name: 🚀 deploy
+      - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
